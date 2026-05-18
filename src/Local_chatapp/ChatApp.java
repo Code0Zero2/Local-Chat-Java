@@ -5,14 +5,14 @@
  */
 package Local_chatapp;
 
+import Local_chatapp.controller.MultiClient;
 import java.awt.Color;
-
-
 
 /**
  *
  * @author Pinder
  */
+
 public class ChatApp extends javax.swing.JFrame {
  static  String name;
     /**

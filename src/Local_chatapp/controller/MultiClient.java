@@ -3,15 +3,19 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Local_chatapp;
+package Local_chatapp.controller;
 
+import Local_chatapp.ChatApp;
+import Local_chatapp.controller.Client;
+import Local_chatapp.MulticastClient;
 import static Local_chatapp.MulticastClient.name;
 import javax.swing.JOptionPane;
 
 /**
  *
- * @author Pinder
+ * @author Morixida
  */
+
 public class MultiClient {
     public MultiClient() { 
         name= JOptionPane.showInputDialog("Please enter your name");
@@ -31,6 +35,6 @@ public class MultiClient {
             new MulticastClient().setVisible(true);
             Thread t1=new Thread(new Client());
             t1.start();
-       }
+        }
     }
 }

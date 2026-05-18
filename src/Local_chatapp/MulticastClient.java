@@ -5,15 +5,12 @@
  */
 package Local_chatapp;
 
+
+import static Local_chatapp.MulticastClient.dataSocket;
 import static Local_chatapp.MulticastClient.name;
-import static Local_chatapp.MulticastClient.s;
 import java.net.*;
 import java.io.*;
-import java.util.*;
-import javax.swing.JOptionPane;
-
 /**
- *
  * @author Morxidia
  */
 
@@ -22,7 +19,7 @@ public  class MulticastClient extends javax.swing.JFrame {
     public static String message;
     public static MulticastSocket socket=null;
     public static InetAddress address ;  
-    public static DatagramSocket s=null;
+    public static DatagramSocket dataSocket=null;
     /**
      * Creates new form MulticastServerThread
      */
@@ -40,17 +37,51 @@ public  class MulticastClient extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jDialog1 = new javax.swing.JDialog();
+        jDialog2 = new javax.swing.JDialog();
+        jDialog3 = new javax.swing.JDialog();
         sendBtn = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         MessageWindow = new javax.swing.JTextArea();
-        jScrollPane2 = new javax.swing.JScrollPane();
         messageBox = new javax.swing.JTextArea();
         msgBoxHeader = new javax.swing.JLabel();
         exitBtn = new javax.swing.JButton();
         Header = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
         userList = new javax.swing.JTextArea();
         userListheader = new javax.swing.JLabel();
+
+        javax.swing.GroupLayout jDialog1Layout = new javax.swing.GroupLayout(jDialog1.getContentPane());
+        jDialog1.getContentPane().setLayout(jDialog1Layout);
+        jDialog1Layout.setHorizontalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog1Layout.setVerticalGroup(
+            jDialog1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jDialog2Layout = new javax.swing.GroupLayout(jDialog2.getContentPane());
+        jDialog2.getContentPane().setLayout(jDialog2Layout);
+        jDialog2Layout.setHorizontalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog2Layout.setVerticalGroup(
+            jDialog2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout jDialog3Layout = new javax.swing.GroupLayout(jDialog3.getContentPane());
+        jDialog3.getContentPane().setLayout(jDialog3Layout);
+        jDialog3Layout.setHorizontalGroup(
+            jDialog3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 400, Short.MAX_VALUE)
+        );
+        jDialog3Layout.setVerticalGroup(
+            jDialog3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 300, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -69,9 +100,13 @@ public  class MulticastClient extends javax.swing.JFrame {
         jScrollPane1.setViewportView(MessageWindow);
 
         messageBox.setColumns(20);
-        messageBox.setFont(new java.awt.Font("Gabriola", 1, 24)); // NOI18N
+        messageBox.setFont(new java.awt.Font("Calibri Light", 0, 18));
         messageBox.setRows(5);
-        jScrollPane2.setViewportView(messageBox);
+        messageBox.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                messageBoxKeyPressed(evt);
+            }
+        });
 
         msgBoxHeader.setFont(new java.awt.Font("Gabriola", 1, 24)); // NOI18N
         msgBoxHeader.setText("Message");
@@ -88,8 +123,8 @@ public  class MulticastClient extends javax.swing.JFrame {
 
         userList.setEditable(false);
         userList.setColumns(20);
+        userList.setLineWrap(true);
         userList.setRows(5);
-        jScrollPane3.setViewportView(userList);
 
         userListheader.setFont(new java.awt.Font("Gabriola", 1, 24)); // NOI18N
         userListheader.setText("Online users");
@@ -100,52 +135,51 @@ public  class MulticastClient extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 573, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(msgBoxHeader)
+                    .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(messageBox, javax.swing.GroupLayout.PREFERRED_SIZE, 559, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(Header, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(11, 500, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 573, Short.MAX_VALUE)
-                            .addComponent(jScrollPane1)
-                            .addComponent(msgBoxHeader, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addGap(12, 12, 12)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(userListheader)
-                                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 179, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(exitBtn))
-                                .addGap(0, 0, Short.MAX_VALUE)))))
-                .addContainerGap(29, Short.MAX_VALUE))
+                            .addComponent(userListheader)
+                            .addComponent(userList, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 35, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(54, 54, 54)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(exitBtn))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(userListheader)
-                    .addComponent(Header))
+                    .addComponent(Header)
+                    .addComponent(userListheader))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
-                        .addGap(3, 3, 3)
+                        .addComponent(userList, javax.swing.GroupLayout.PREFERRED_SIZE, 233, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addComponent(exitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(43, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(msgBoxHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(29, 29, 29))
+                        .addComponent(messageBox, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(43, 43, 43))))
         );
+
+        userList.setFont(new java.awt.Font("Calibri Light", 0, 18));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -156,7 +190,7 @@ public  class MulticastClient extends javax.swing.JFrame {
               try{
                 InetAddress group = InetAddress.getByName("230.0.0.1");
                 DatagramPacket packet = new DatagramPacket(buf, buf.length, group, 4446);
-                s.send(packet);
+                dataSocket.send(packet);
               }
               catch(Exception e){
                   System.err.println(e);
@@ -168,9 +202,9 @@ public  class MulticastClient extends javax.swing.JFrame {
         try{
             InetAddress group=InetAddress.getByName("230.0.0.2");
             DatagramPacket packet=new DatagramPacket(buf, buf.length,group,5000);
-            s.send(packet);
+            dataSocket.send(packet);
             socket.leaveGroup(address);
-            s.close();
+            dataSocket.close();
         }
         catch(Exception e){
             System.err.println(e);
@@ -180,33 +214,40 @@ public  class MulticastClient extends javax.swing.JFrame {
     }//GEN-LAST:event_exitBtnActionPerformed
 
     private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
-        String text= messageBox.getText();
-         if(!text.equals(""))
-         {    message=name+": "+text;
-         try {
-             
-                byte[] buf ;
- 
-                  
-                                 
-                   
-                buf = message.getBytes();
-             
-            // send it
-          
-                InetAddress group = InetAddress.getByName("230.0.0.1");
-                DatagramPacket packet = new DatagramPacket(buf, buf.length, group, 4446);
-               
-              s.send(packet);  
-            
-           
-               }       
-         catch (IOException e) {
-               // System.out.println(e);
-                 MulticastClient.socket.close();
-         }   }
+        this.handleMessageSend();
+        return;
     }//GEN-LAST:event_sendBtnActionPerformed
 
+    private void messageBoxKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_messageBoxKeyPressed
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            evt.consume();
+            this.handleMessageSend();
+            messageBox.setText("");
+        }
+    }//GEN-LAST:event_messageBoxKeyPressed
+
+    /*
+        costum handler by Morxidia
+    */
+    
+    private void handleMessageSend(){
+        String text= messageBox.getText();
+             if(!text.equals("")){    
+                message=name+": "+text;
+                try {
+                       byte[] buf ;
+                       buf = message.getBytes();
+                       // send it
+                       InetAddress group = InetAddress.getByName("230.0.0.1");
+                       DatagramPacket packet = new DatagramPacket(buf, buf.length, group, 4446);
+                       dataSocket.send(packet);  
+                      }       
+                catch (IOException e) {
+                      // System.out.println(e);
+                        MulticastClient.socket.close();
+                }   
+            }
+    }    
     /**
      * @param args the command line arguments
      */
@@ -234,9 +275,10 @@ public  class MulticastClient extends javax.swing.JFrame {
     private javax.swing.JLabel Header;
     public static javax.swing.JTextArea MessageWindow;
     private javax.swing.JButton exitBtn;
+    private javax.swing.JDialog jDialog1;
+    private javax.swing.JDialog jDialog2;
+    private javax.swing.JDialog jDialog3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
     public static javax.swing.JTextArea messageBox;
     private javax.swing.JLabel msgBoxHeader;
     private javax.swing.JButton sendBtn;
@@ -245,52 +287,3 @@ public  class MulticastClient extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 }
 
-class Client implements Runnable {
-    Client(){
-         try{
-            MulticastClient.socket = new MulticastSocket(4446) ;
-            MulticastClient.s=new DatagramSocket();
-            MulticastClient.address=InetAddress.getByName("230.0.0.1");
-            MulticastClient.socket.joinGroup(MulticastClient.address);
-        }
-        catch(Exception e){
-            JOptionPane.showMessageDialog(new ChatApp(), "Sorry,Cannot bind");
-        }
-     }
- 
-    @Override
-    public void run(){
-        Thread t3=new Thread(new OnlineStatus());
-        t3.start();
-        Thread t4=new Thread(new ReceiveOnlineStatus());    
-        t4.start();
-        newUser();
-        while(true){  
-            try{
-                DatagramPacket packet;
-                byte[] buf = new byte[256];
-                packet = new DatagramPacket(buf, buf.length);
-                MulticastClient.socket.receive(packet);
-                String received = new String(packet.getData(), 0, packet.getLength());
-                MulticastClient.MessageWindow.setText(MulticastClient.MessageWindow.getText()+received+"\n");
-                MulticastClient.messageBox.setText("");
-            }
-            catch(IOException e){
-                System.err.println(e);
-            }
-        }
-    } 
-    
-    void newUser(){
-        String x= name+" has logged into the chat room";
-        byte buf[]=x.getBytes();
-        try{  
-            InetAddress group = InetAddress.getByName("230.0.0.1");
-            DatagramPacket packet = new DatagramPacket(buf, buf.length, group, 4446);
-            s.send(packet);
-        }
-        catch(Exception e){
-            System.err.println(e);
-        }
-    }
-}

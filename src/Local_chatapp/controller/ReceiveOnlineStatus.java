@@ -1,63 +1,26 @@
 /*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Local_chatapp;
+package Local_chatapp.controller;
+
+import Local_chatapp.MulticastClient;
+import java.net.DatagramPacket;
+import java.net.InetAddress;
+import java.net.MulticastSocket;
+import java.util.ArrayList;
 
 /**
  *
- * @author Morxidia
- * 
+ * @author morxidia
  */
 
-import java.io.*;
-import static java.lang.Thread.sleep;
-import java.net.*;
-import java.util.*;
-public class OnlineStatus implements Runnable{
-     DatagramSocket s;
-
-    OnlineStatus(){
-        try {
-            s=new DatagramSocket();
-        } catch (SocketException ex) {
-            
-        }}
-    @Override
-    public void run(){ 
-        while(true)
-        { 
-            try {
-                byte[] buf ;
-                buf=MulticastClient.name.getBytes();
-                // send it
-                InetAddress group = InetAddress.getByName("230.0.0.2");
-                DatagramPacket packet = new DatagramPacket(buf, buf.length, group, 5000);
-                s.send(packet);  
-                //System.out.println(Math.random());
-                try{
-                    sleep((long)(Math.random() * 20000));
-                }
-                catch(Exception e){
-                
-                }
-            }       
-            catch (IOException e) {
-                System.out.println("error in online status class");
-                s.close();
-            }
-        }
-    }
-}
-
-
-class ReceiveOnlineStatus implements Runnable{
+public class ReceiveOnlineStatus implements Runnable{
     InetAddress address=null;
     MulticastSocket socket=null;
     public static ArrayList al=new ArrayList();
     
-    ReceiveOnlineStatus(){
+    public ReceiveOnlineStatus(){
         try{
             socket = new MulticastSocket(5000) ;
             address=InetAddress.getByName("230.0.0.2");
